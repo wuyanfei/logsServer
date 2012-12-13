@@ -1,4 +1,4 @@
  { 
-  "logPath":"/home/fly/下载/test/",
+  "logPath":"/opt/NodeAppServer/log",
   "port":10060
  }
