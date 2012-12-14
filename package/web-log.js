@@ -8,7 +8,7 @@ try{
 }catch(ex){
 	console.log(ex.stack);
 }
-var URL = configs.url || 'http://127.0.0.1:10060/logsPost';
+var URL = configs.url || 'http://219.142.31.134:10060/logsPost';
 var fs = require('fs');
 var post = function(url, sdata, cb) {
 		var option = {
@@ -25,7 +25,7 @@ var post = function(url, sdata, cb) {
 	}
 
 var Logger = function(logPath) {
-		this.logPath = logPath;
+		this.logPath = (configs.logType||'线上')+'/'+logPath;
 		var self = this;
 		var url = URL;
 		self.q = async.queue(function(item, cb) {
