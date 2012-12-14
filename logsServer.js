@@ -19,6 +19,7 @@ fs.writeFileSync(__dirname + '/process.pid', process.pid.toString(), 'ascii');
 var pkParse = require('./lib/parse').createParse();
 app.post('/logsPost', function(req, res) {
 	res.header("Content-Type", "application/json; charset=utf-8");
+	//console.log(req.body);
 	var parse = {
 		'parse': req.body,
 		'res': res
@@ -28,7 +29,7 @@ app.post('/logsPost', function(req, res) {
 });
 
 app.listen(configs.port);
-console.log('******logsServer [port=' + configs.port + '] has Started****** ');
+console.log(new Date().format('[yyyy-MM-dd hh:MM:ss] ')+'logsServer [port=' + configs.port + '] has Started');
 
 process.on('uncaughtException', function(e) {
 	if(e && e.stack) {
@@ -58,6 +59,7 @@ var check = function() {
 			},1000*60*60);
 		}else{
 			diff = parseInt(diff) - 1000*30;//提前30秒删除
+			console.log(new Date().format('[yyyy-MM-dd hh:MM:ss] ')+parseInt(diff/1000/60)+'分钟后删除log文件');
 			setTimeout(function(){
 				deletLog();
 			},diff);

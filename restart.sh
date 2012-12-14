@@ -11,5 +11,5 @@ then
 else 
  kill -9 $pid
 fi
-/usr/local/bin/node logsServer.js &
+/usr/local/bin/node logsServer.js > log.log&
 
