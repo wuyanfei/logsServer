@@ -21,7 +21,7 @@ curl -d "logPath=log.log&logLevel=1&msg=sdfdfdfdfdffffffffffffffdf&projectName=r
 
 通过以下代码引入
 
-var info_sh_sz = require('./web-log').log('/opt/node-pro/NodeAppServer/log/info_sh_sz.log');
+var info_sh_sz = require('info_sh_sz.log');
 
 log.debug('测试debug');
 
