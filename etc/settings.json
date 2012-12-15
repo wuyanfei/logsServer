@@ -1,7 +1,9 @@
+
  { 
-  "logPath":"/opt/NodeAppServer/log",
+  "logDir":"/opt/log",
   "port":10060,
   "ip":{
   	"127.0.0.1":"望京"
   }
  }
+

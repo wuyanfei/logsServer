@@ -17,24 +17,34 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.bodyParser());
 fs.writeFileSync(__dirname + '/process.pid', process.pid.toString(), 'ascii');
 var pkParse = require('./lib/parse').createParse();
+
+var getLogPath = function(req) {
+		var remote_ip = req.connection.remoteAddress;
+		var ip_obj = configs.ip ||{};
+		var remote_appName = ip_obj[remote_ip]||'服务器';
+		var logPath = configs.logDir || '/opt/log';
+		var suffix = logPath.substring(logPath.length - 1, logPath.length);
+		if(suffix != '/') {
+			logPath = logPath + '/';
+		}
+		var remote_logPath = req.body.logPath;
+		var prefix = remote_logPath.substring(0,1);
+		if(prefix == '/'){
+			remote_logPath = remote_logPath.substring(1);
+		}
+		if(remote_logPath.substring(remote_logPath.length-1) != '/'){
+			remote_logPath = '/'+remote_logPath;
+		}
+		logPath = logPath + remote_appName+remote_logPath;
+		var dirName = logPath.substring(0, parseInt(logPath.lastIndexOf('/')));
+		var logName = logPath.substring(parseInt(logPath.lastIndexOf('/')) + 1);
+		logPath = dirName + '/' + logName;
+		return logPath;
+	};
+
 app.post('/logsPost', function(req, res) {
 	res.header("Content-Type", "application/json; charset=utf-8");
-	var remote_ip = req.connection.remoteAddress;
-	var remote_appName = configs.ip[remote_ip];
-	var logPath = configs.logPath || '/opt';
-	var suffix = logPath.substring(logPath.length - 1, logPath.length);
-	if(suffix != '/') {
-		logPath = logPath + '/';
-	}
-	logPath = logPath +req.body.logPath;
-	var dirName = logPath.substring(0,parseInt(logPath.lastIndexOf('/'))+1)+remote_appName;
-	console.log('dirName='+dirName);
-	var logName = logPath.substring(parseInt(logPath.lastIndexOf('/'))+1);
-	console.log('logName='+logName);
-	logPath = dirName+'/'+logName;
-	console.log(logPath);
-	req.body.logPath = logPath;
-	// console.log(res);
+	req.body.logPath = getLogPath(req);
 	var parse = {
 		'parse': req.body,
 		'res': res
@@ -69,9 +79,10 @@ var check = function() {
 		var now_time = new Date();
 		var diff = open_time.getTime() - now_time.getTime();
 		if(diff <= 0) {
+			console.log(new Date().format('[yyyy-MM-dd hh:MM:ss] ') + '日志目录下为当天日志信息不需要设定日志清空任务');
 			setTimeout(function() {
 				check();
-			}, 1000 * 60 * 60);
+			}, 1000 * 60 * 240); //每4小时检查一次
 		} else {
 			diff = parseInt(diff) - 1000 * 30; //提前30秒删除
 			console.log(new Date().format('[yyyy-MM-dd hh:MM:ss] ') + parseInt(diff / 1000 / 60) + '分钟后删除log文件');

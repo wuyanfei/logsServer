@@ -3,12 +3,13 @@ var utils = require("util");
 var async = require('async');
 var _event = new require("events").EventEmitter;
 var configs = {};
-try{
-	configs = JSON.parse(fs.readFileSync(__dirname+'/../etc/settings.json', 'utf8'));
-}catch(ex){
+try {
+	configs = JSON.parse(fs.readFileSync(__dirname + '/../etc/log-set.json', 'utf8'));
+} catch(ex) {
 	console.log(ex.stack);
 }
-var URL = configs.url || 'http://219.142.31.134:10060/logsPost';
+var URL = configs.logIp || '219.142.31.134:10060';
+URL = 'http://' + URL + '/logsPost';
 var fs = require('fs');
 var post = function(url, sdata, cb) {
 		var option = {
@@ -25,7 +26,7 @@ var post = function(url, sdata, cb) {
 	}
 
 var Logger = function(logPath) {
-		this.logPath = (configs.logType||'线上')+'/'+logPath;
+		this.logPath = (configs.logType || '线上') + '/' + logPath;
 		var self = this;
 		var url = URL;
 		self.q = async.queue(function(item, cb) {
