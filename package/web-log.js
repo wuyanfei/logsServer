@@ -2,6 +2,7 @@ var request = require('request');
 var utils = require("util");
 var async = require('async');
 var _event = new require("events").EventEmitter;
+var fs = require('fs');
 var configs = {};
 try {
 	configs = JSON.parse(fs.readFileSync(__dirname + '/../etc/log-set.json', 'utf8'));
@@ -10,7 +11,6 @@ try {
 }
 var URL = configs.logIp || '219.142.31.134:10060';
 URL = 'http://' + URL + '/logsPost';
-var fs = require('fs');
 var post = function(url, sdata, cb) {
 		var option = {
 			url: url,
