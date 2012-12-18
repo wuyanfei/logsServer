@@ -65,7 +65,7 @@ process.on('uncaughtException', function(e) {
 });
 
 var deletLog = function() {
-		dive(configs.logPath, function(err, res) {
+		dive(configs.logDir, function(err, res) {
 			if(res) {
 				fs.unlinkSync(res);
 			}

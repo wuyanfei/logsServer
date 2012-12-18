@@ -1,8 +1,12 @@
  { 
-  "logDir":"/opt/log",
-  "port":10080,
+  "logDir":"/opt/logsServer/log",
+  "port":10060,
   "ip":{
-  	"127.0.0.1":"fundFlow"
+  	"127.0.0.1":"fundFlow",
+  	"211.136.85.45":"wangjing_216",
+  	"211.136.86.227":"wangjing_227",
+  	"218.204.252.208":"guangzhou_208",
+  	"218.204.252.201":"guangzhou_201"
   }
  }
 
