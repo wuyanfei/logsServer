@@ -3,7 +3,7 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:$PATH
 export PATH
 
-cd /opt/logsServer
+cd /opt/node-pro/logsServer
 pid=`cat process.pid`
 if [ -z $pid ]
 then 

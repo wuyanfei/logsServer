@@ -11,8 +11,8 @@ node logsServer.js
 
 ######测试是否安装成功######
 
-curl -d "logPath=线上/log.log&logLevel=1&msg=恭喜，日志服务器安装成功&projectName=测试" http://127.0.0.1:10060/logsPost
-tail -f /opt/log/望京/线上/log.log
+curl -d "logPath=online/test.log&logLevel=1&msg=恭喜，日志服务器安装成功&projectName=测试" http://127.0.0.1:10060/logsPost
+tail -f /opt/node-pro/logsServer/log/fundFlow/online/test.log
 
 ########使用说明##########
 

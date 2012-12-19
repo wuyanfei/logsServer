@@ -1,5 +1,5 @@
  { 
-  "logDir":"/opt/logsServer/log",
+  "logDir":"/opt/node-pro/logsServer/log",
   "port":10060,
   "ip":{
   	"127.0.0.1":"fundFlow",
