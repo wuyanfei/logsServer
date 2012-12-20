@@ -30,9 +30,6 @@ var post = function(url, sdata, cb) {
 var workerQueue = function() {
 		var self = this;
 		self.q = async.queue(function(item, cb) {
-			if(self.q.length() % 200 == 0) {
-				console.log('日志队列大小：' + self.q.length());
-			}
 			post(URL, item.task, cb);
 		}, 10);
 
